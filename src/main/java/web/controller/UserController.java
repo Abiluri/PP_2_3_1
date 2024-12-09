@@ -8,48 +8,48 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
-import web.service.UserService;
+import web.service.UserServiceImpl;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/users") // Указываем общий путь для контроллера
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping
     public String getUsers(ModelMap model) {
-        List<User> users = userService.getAllUsers();
+        List<User> users = userServiceImpl.getAllUsers();
         model.addAttribute("users", users);
-        return "users"; // Убедитесь, что этот шаблон существует
+        return "users";
     }
 
     @PostMapping
     public String createUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
-        userService.insertUser(name, email, password);
-        return "redirect:/users"; // Перенаправление после успешного создания
+        userServiceImpl.insertUser(name, email, password);
+        return "redirect:/users";
     }
 
-    @PostMapping("/update") // Маппинг для обновления пользователя
+    @PostMapping("/update")
     public String updateUser(@RequestParam Long id, @RequestParam String name, @RequestParam String email,
                              @RequestParam String password) {
-        User user = userService.getUserByID(id);
+        User user = userServiceImpl.getUserByID(id);
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
-        userService.updateUser(user);
-        return "redirect:/users"; // Перенаправление после успешного обновления
+        userServiceImpl.updateUser(user);
+        return "redirect:/users";
     }
 
-    @PostMapping("/delete") // Маппинг для удаления пользователя
+    @PostMapping("/delete")
     public String deleteUser(@RequestParam String email) {
-        userService.deleteUser(email);
-        return "redirect:/users"; // Перенаправление после успешного удаления
+        userServiceImpl.deleteUser(email);
+        return "redirect:/users";
     }
 }

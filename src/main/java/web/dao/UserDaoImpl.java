@@ -33,7 +33,6 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("email", email)
                 .getResultList();
         if (!users.isEmpty()) {
-            //удаляем всех пользователей с искомым email
             for (int i = 0; i < users.size(); i++) {
                 entityManager.remove(users.get(i));
             }
