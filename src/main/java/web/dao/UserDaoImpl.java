@@ -33,8 +33,8 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("email", email)
                 .getResultList();
         if (!users.isEmpty()) {
-            for (int i = 0; i < users.size(); i++) {
-                entityManager.remove(users.get(i));
+            for (User user : users) {
+                entityManager.remove(user);
             }
         }
     }
