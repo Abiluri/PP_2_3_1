@@ -13,6 +13,7 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Override
     public void insertUser(String name, String email, String password) {
         User user = new User();
@@ -23,7 +24,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(Long id, String name, String email, String password) {
+        User user = getUserByID(id);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
         entityManager.merge(user);
     }
 

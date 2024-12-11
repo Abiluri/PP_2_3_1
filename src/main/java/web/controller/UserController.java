@@ -39,11 +39,7 @@ public class UserController {
     @PostMapping("/update")
     public String updateUser(@RequestParam Long id, @RequestParam String name, @RequestParam String email,
                              @RequestParam String password) {
-        User user = userServiceImpl.getUserByID(id);
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
-        userServiceImpl.updateUser(user);
+        userServiceImpl.updateUser(id, name, email, password);
         return "redirect:/users";
     }
 

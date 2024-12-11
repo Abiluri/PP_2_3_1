@@ -3,6 +3,7 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.dao.UserDao;
 import web.model.User;
 
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    public void updateUser(Long id, String name, String email, String password) {
+        userDao.updateUser(id, name, email, password);
     }
 
     @Transactional
